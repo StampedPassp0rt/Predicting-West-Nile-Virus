@@ -1,4 +1,4 @@
-Roadmap
+# Roadmap
 1. Read the problem situation
 2. Understand and discuss the issue
 3. Define the ultimate deliverable
@@ -12,7 +12,7 @@ Roadmap
 11. Present results
 
 
-The Scientific Method
+# The Scientific Method
 1. Problem Statement Mission: To identify mosquitos that have the west nile virus.
 2. Through exploratory data analysis we can estimate the number of infected mosquitos,
 this will give us a good idea of infection rate for the testing data
@@ -20,7 +20,7 @@ this will give us a good idea of infection rate for the testing data
 
 
 
-Project Planning
+# Project Planning
 1. Our ultimate deliverable is to predict if the west nile virus is present in a batch of mosquitos
 2. (In progress)
 3. Formulate the final deliverable, acquire and explore the data, clean the data, pick the correct model,
