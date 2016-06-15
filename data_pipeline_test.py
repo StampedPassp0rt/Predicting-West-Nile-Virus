@@ -96,6 +96,11 @@ weather_mean['Day'] = weather_mean.index.day
 
 weather_mean.head(10)
 
+#Filling in StnPressure missing value...
+
+weather_mean.StnPressure.fillna(weather_mean.StnPressure.mean(), inplace = True)
+
+
 
 '''5. Spray has missing time values, but these are likely irrelevant. Hence, no dropping of missing vals.'''
 
@@ -109,22 +114,16 @@ be missing...'''
 merge_temp = pd.merge(train_dummies, weather_mean, how = 'left', left_on = 'Date', right_index = True)
 whole_df = pd.merge(merge_temp, spray, how = 'left', left_index = True, right_index = True)
 
-train_dummies.info()
-weather_mean.info()
 
-whole_df.info()
+'''7. Exporting data to csv'''
 
-merge_temp.head()
+weather_mean.to_csv('../Predicting-West-Nile-Virus/weather_mean.csv', sep = ',', index = False)
+train_dummies.to_csv('../Predicting-West-Nile-Virus/train_data_dummies.csv', sep = ',', index = False)
+merge_temp.to_csv('../Predicting-West-Nile-Virus/merged_train_weather.csv', sep = ',', index = False)
 
-merge_temp.info()
 
-weather.head()
 
-train.info()
-
-whole_df.info()
-
-'''7. Setting the index to Date,
+'''8. Setting the index to Date,
 and extracting month and year.'''
 
 def set_index(data):
