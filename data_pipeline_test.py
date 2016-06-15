@@ -64,6 +64,7 @@ weather['Sunset'] = weather.Sunset.fillna(method = 'pad', limit = 1)
 weather['Depart'] = weather.Depart.fillna(method = 'pad', limit = 1)
 weather['SnowFall'] = weather.SnowFall.fillna(method = 'pad', limit = 1)
 weather['Depth'] = weather.Depth.fillna(method = 'pad', limit = 1)
+#
 
 #Filling avg T for when missing by avg of range....
 weather.Tavg[weather.Tavg.isnull() == True] = weather[['Tmax', 'Tmin']][weather.Tavg.isnull() == True].mean(axis = 1)
@@ -72,8 +73,8 @@ weather.Tavg[weather.Tavg.isnull() == True] = weather[['Tmax', 'Tmin']][weather.
 #Heat and cool are predictable missing for Midway, and looks similar enough that going to do pad from O'Hare.
 #Better way to do this?
 
-weather['Heat'] = weather.Heat.fillna(method = 'pad', limit = 1)
-weather['Cool'] = weather.Cool.fillna(method = 'pad', limit = 1)
+#weather['Heat'] = weather.Heat.fillna(method = 'pad', limit = 1)
+#weather['Cool'] = weather.Cool.fillna(method = 'pad', limit = 1)
 
 #Fill PrecipTotal with 0 - when looking at the PrecipTotal's for the missing value station,
 #the other station had no precipitation that day.
@@ -93,7 +94,7 @@ weather_mean['Year'] = weather_mean.index.year
 weather_mean['Month'] = weather_mean.index.month
 weather_mean['Day'] = weather_mean.index.day
 
-
+weather_mean.head(10)
 
 
 '''5. Spray has missing time values, but these are likely irrelevant. Hence, no dropping of missing vals.'''
