@@ -21,6 +21,66 @@ This is something we think could help the model.
 
 Since the weather data has data for two Chicago NOAA stations for each day, these could be averaged by the day.
 
+The function we would use for this is resample. However, even after cleaning the data as best we could, resampling produced null values:
+
+**Dataset Info after cleaning of null values:**
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 2932 entries, 2007-05-01 to 2014-10-31
+Data columns (total 16 columns):
+Station        2932 non-null int64
+Tmax           2932 non-null int64
+Tmin           2932 non-null int64
+Tavg           2932 non-null float64
+DewPoint       2932 non-null int64
+WetBulb        2932 non-null float64
+Heat           2932 non-null float64
+Cool           2932 non-null float64
+Sunrise        2932 non-null float64
+Sunset         2932 non-null float64
+PrecipTotal    2932 non-null object
+StnPressure    2932 non-null float64
+SeaLevel       2932 non-null float64
+ResultSpeed    2932 non-null float64
+ResultDir      2932 non-null int64
+AvgSpeed       2932 non-null float64
+dtypes: float64(10), int64(5), object(1)
+memory usage: 389.4+ KB
+
+**DataSet Info after Resample on the cleaned data**
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 2741 entries, 2007-05-01 to 2014-10-31
+Freq: D
+Data columns (total 15 columns):
+Station        1471 non-null float64
+Tmax           1471 non-null float64
+Tmin           1471 non-null float64
+Tavg           1471 non-null float64
+DewPoint       1471 non-null float64
+WetBulb        1471 non-null float64
+Heat           1471 non-null float64
+Cool           1471 non-null float64
+Sunrise        1471 non-null float64
+Sunset         1471 non-null float64
+StnPressure    1471 non-null float64
+SeaLevel       1471 non-null float64
+ResultSpeed    1471 non-null float64
+ResultDir      1471 non-null float64
+AvgSpeed       1471 non-null float64
+dtypes: float64(15)
+memory usage: 342.6 KB
+
+This does not make sense to me.
+
+However, cleaning the data enough, and then making a pivot table with date as the index does work (assuming you do not set the index as Date initially.)
+
+**Some patterns in the missing weather data we noticed**
+
+1) Sunrise and Sunset are never collected at Station 2 (but given they're both in the same city, or close enough to each other, this is likely unimportant.)
+
+2) For the most part, the average temperature for a station for a day was the simple average of its high and low. So for missing average temperature data points, taking the simple average of that station's high and low for that day was the imputation method.
+
+3) Similarly, other values (Heat/Cool) and more looked the same or similar to the other station's value for that day. Usually, for each day, if one station was missing that data, the other had it. Creating a pivot table took care of these values, actually, since the mean of one value and one null is that one value for pandas and numpy.
+
 ### Spray data - location....
 The spraying only occurred for certain days and locations. Matching ideally would be on distance from the spray location and a trap to associate that a location was sprayed on a particular day.
 
