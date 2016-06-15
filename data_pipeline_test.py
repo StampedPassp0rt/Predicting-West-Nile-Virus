@@ -105,7 +105,7 @@ What this means is that for years without spray data, the data for spraying will
 be missing...'''
 
 
-merge_temp = pd.merge(train_dummies, weather_mean, how = 'left', left_index = True, right_index = True)
+merge_temp = pd.merge(train_dummies, weather_mean, how = 'left', left_on = 'Date', right_index = True)
 whole_df = pd.merge(merge_temp, spray, how = 'left', left_index = True, right_index = True)
 
 train_dummies.info()
