@@ -117,9 +117,11 @@ whole_df = pd.merge(merge_temp, spray, how = 'left', left_index = True, right_in
 
 '''7. Exporting data to csv'''
 
-weather_mean.to_csv('../Predicting-West-Nile-Virus/weather_mean.csv', sep = ',', index = False)
+
+
+weather_mean.to_csv('../Predicting-West-Nile-Virus/weather_mean.csv', sep = ',', index = True, index_label = 'Date')
 train_dummies.to_csv('../Predicting-West-Nile-Virus/train_data_dummies.csv', sep = ',', index = False)
-merge_temp.to_csv('../Predicting-West-Nile-Virus/merged_train_weather.csv', sep = ',', index = False)
+merge_temp.to_csv('../Predicting-West-Nile-Virus/merged_train_weather.csv', sep = ',', index =  True, index_label = 'Date')
 
 
 
