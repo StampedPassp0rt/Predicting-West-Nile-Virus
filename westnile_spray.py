@@ -64,3 +64,33 @@ for dist in [.5,1,3]:
     filename = 'spray_'+str(dist)+'.csv'
     this_train.to_csv(filename)
     print 'Done with distance',str(dist)
+
+# Read in the csv files we just created
+# (Start here with the original csv files to save time)
+spray_half = pd.read_csv('/Users/Brian/spray_0.5.csv')
+spray_one = pd.read_csv('/Users/Brian/spray_1.csv')
+spray_three = pd.read_csv('/Users/Brian/spray_3.csv')
+
+# The spray that occured on 8/15/13 started in the evening and continued past
+# midnight into 8/16/13. Since this is part of the same spray, having two
+# columns for one spray will cause issues with our models.
+# We want to set the element in the 8/15/13 spray equal to 1 if there was a
+# spray within the distance on either 8/15 or 8/16
+
+# Iterate through our 3 DataFrames
+for df in [spray_half,spray_one,spray_three]:
+    # Iterate through the rows of the DataFrame
+    for index, row in df.iterrows():
+        # We only need to update the 8/15 column if it isn't already = 1
+        if row['spray_2013-08-15'] == 0:
+            # We only update the 8/15 column if 8/16 = 1
+            if row['spray_2013-08-16'] == 1:
+                # Update the value in the 8/15/13 column
+                df.set_value(index,'spray_2013-08-15',1)
+    # Drop the 8/16/2013 column from the DataFrame
+    df.drop('spray_2013-08-16',axis=1,inplace=True)
+
+# Save our updated DataFrames to csv files
+spray_half.to_csv('spray_0.5_clean.csv')
+spray_one.to_csv('spray_1_clean.csv')
+spray_three.to_csv('spray_3_clean.csv')
