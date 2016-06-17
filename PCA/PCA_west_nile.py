@@ -295,13 +295,18 @@ plt.axhline(y=0, linewidth=5, color='grey', ls='dashed')
 plt.axhline(y=100, linewidth=3, color='grey', ls='dashed')
 plt.axhline(y=95, linewidth = 3, color = 'green', ls = 'dashed')
 plt.axhline(y=90, linewidth = 3, color = 'purple', ls = 'dashed')
+plt.axvline(x=10, linewidth=3, color='black')
+plt.axvline(x=8, linewidth = 3, color = 'red')
+plt.axvline(x=5, linewidth = 3, color = 'black')
+
+
 
 ax = plt.gca()
 ax.set_xlim([1,35])
 ax.set_ylim([-5,105])
 
-ax.set_ylabel('cumulative variance explained', fontsize=16)
-ax.set_xlabel('component', fontsize=16)
+ax.set_ylabel('Cumulative Variance Explained', fontsize=16)
+ax.set_xlabel('Component', fontsize=16)
 
 for tick in ax.xaxis.get_major_ticks():
     tick.label.set_fontsize(12)
@@ -309,7 +314,8 @@ for tick in ax.xaxis.get_major_ticks():
 for tick in ax.yaxis.get_major_ticks():
     tick.label.set_fontsize(12)
 
-ax.set_title('component vs cumulative variance explained\n', fontsize=20)
+ax.set_title('Component vs Cumulative variance Explained\n', fontsize=20)
+plt.savefig('PCAChicago.png')
 
 
 print "Cumulative variance explained at Component 10:", cum_exp_var_m[9]
@@ -480,7 +486,7 @@ prin_comps_m_nospray
 
 #Merging with wnv target...
 
-wnv_PCs_m_nospray = pd.merge(spray_merged[['Date', 'WnvPresent', 'NumMosquitos','Trap', 'spray_ind']], prin_comps_m, left_index = True, right_index = True)
+wnv_PCs_m_nospray = pd.merge(spray_merged[['Date', 'WnvPresent', 'NumMosquitos','Trap']], prin_comps_m_nospray, left_index = True, right_index = True)
 
 wnv_PCs_m_nospray.info()
 
