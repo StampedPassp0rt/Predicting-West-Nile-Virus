@@ -152,9 +152,13 @@ prin_comps
 
 #Merging with wnv target...
 
-wnv_PCs = pd.merge(spray_merged[['WnvPresent', 'NumMosquitos','Trap']], prin_comps, left_index = True, right_index = True)
+wnv_PCs = pd.merge(spray_merged[['Date', 'Trap', 'NumMosquitos','WnvPresent']], prin_comps, left_index = True, right_index = True)
 
 wnv_PCs.info()
+
+#Saving PCs from train data without spray columns as csv.
+
+wnv_PCs.to_csv('train_PCA_nospraycolumns.csv', sep = ',', index = True, index_label = 'Index')
 
 #Now let's see how our eight PCs related back to our original features...
 
@@ -591,3 +595,5 @@ submission_baggingknn_final.to_csv('sub_knn_final.csv', sep = ',', index = False
 submission_dt_final.to_csv('sub_dt_final.csv', sep = ',', index = False)
 
 test_weather_dummies.info()
+
+X_PCs
